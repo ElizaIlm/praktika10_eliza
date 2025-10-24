@@ -42,7 +42,68 @@ namespace pr10elik.Windows
 
         private void AddPassport(object sender, RoutedEventArgs e)
         {
-            
+            if (String.IsNullOrEmpty(Name.Text) || !Classes.Common.ChechRegex.Match("^[А-Яа-яЁё]*$", Name.Text))
+            {
+                MessageBox.Show("Не правильно указано имя.");
+                return;
+            }
+            if (String.IsNullOrEmpty(FirstName.Text) || !Classes.Common.ChechRegex.Match("^[А-Яа-яЁё]*$", Name.Text))
+            {
+                MessageBox.Show("Не правильно указана фамилия.");
+                return;
+            }
+            if (String.IsNullOrEmpty(LastName.Text) || !Classes.Common.ChechRegex.Match("^[А-Яа-яЁё]*$", Name.Text))
+            {
+                MessageBox.Show("Не правильно указано отчество.");
+                return;
+            }
+            if (String.IsNullOrEmpty(Issued.Text) ||
+        !Classes.Common.ChechRegex.Match("^[А-Яа-яЁё0-9\\s\\-\"\",.]*$", Issued.Text))
+            {
+                MessageBox.Show("Не правильно указано кем выдан паспорт.");
+                return;
+            }
+
+            // Проверка даты выдачи
+            if (String.IsNullOrEmpty(DateOfIssued.Text) ||
+                !Classes.Common.ChechRegex.Match("^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.(19|20)\\d{2}$", DateOfIssued.Text))
+            {
+                MessageBox.Show("Не правильно указана дата выдачи. Используйте формат ДД.ММ.ГГГГ");
+                return;
+            }
+
+            // Проверка кода подразделения
+            if (String.IsNullOrEmpty(DepatmentCode.Text) ||
+                !Classes.Common.ChechRegex.Match("^\\d{3}-\\d{3}$", DepatmentCode.Text))
+            {
+                MessageBox.Show("Не правильно указан код подразделения. Формат: XXX-XXX");
+                return;
+            }
+
+            // Проверка серии и номера паспорта 
+            if (String.IsNullOrEmpty(SerialAndNumber.Text) ||
+                !Classes.Common.ChechRegex.Match("^\\d{4}\\s\\d{6}$", SerialAndNumber.Text))
+            {
+                MessageBox.Show("Не правильно указаны серия и номер паспорта. Формат: XXXX XXXXXX");
+                return;
+            }
+
+            // Проверка даты рождения
+            if (String.IsNullOrEmpty(DateOfBirth.Text) ||
+                !Classes.Common.ChechRegex.Match("^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.(19|20)\\d{2}$", DateOfBirth.Text))
+            {
+                MessageBox.Show("Не правильно указана дата рождения. Используйте формат ДД.ММ.ГГГГ");
+                return;
+            }
+
+            // Проверка места рождения
+            if (String.IsNullOrEmpty(PlaceOfBirth.Text) ||
+                !Classes.Common.ChechRegex.Match("^[А-Яа-яЁё0-9\\s\\-\"\",.]*$", PlaceOfBirth.Text))
+            {
+                MessageBox.Show("Не правильно указано место рождения.");
+                return;
+            }
+
             if (EditPassport == null)
             {
                 EditPassport = new Classes.Passport();
@@ -67,7 +128,6 @@ namespace pr10elik.Windows
             MainWindow.init.LoadPassports();
             this.Close();
         }
-
         private void SerialAndNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -75,4 +135,4 @@ namespace pr10elik.Windows
     }
 
 }
-}
+
